@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -20,18 +21,24 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 import uz.asz.myapp.config.ApplicationProperties;
+import uz.asz.myapp.telegram.CheckUserService;
+import uz.asz.myapp.telegram.RegisterUserService;
 import uz.asz.myapp.telegram.Telegram;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = { "uz.asz.myapp" })
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
-public class MyMonolightApp {
+public class MyMonolightApp implements InitializingBean {
 
     private static final Logger log = LoggerFactory.getLogger(MyMonolightApp.class);
 
     private final Environment env;
+    private final CheckUserService checkUserService;
+    private final RegisterUserService registerUserService;
 
-    public MyMonolightApp(Environment env) {
+    public MyMonolightApp(Environment env, CheckUserService checkUserService, RegisterUserService registerUserService) {
         this.env = env;
+        this.checkUserService = checkUserService;
+        this.registerUserService = registerUserService;
     }
 
     /**
@@ -62,6 +69,20 @@ public class MyMonolightApp {
         }
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        ApiContextInitializer.init();
+        // Instantiate Telegram Bots API
+        TelegramBotsApi botsApi = new TelegramBotsApi();
+        try {
+            botsApi.registerBot(new Telegram(checkUserService, registerUserService));
+            System.out.println("Connect To Telegram!");
+        } catch (TelegramApiRequestException e) {
+            e.printStackTrace();
+            System.out.println("Not Connect To Telegram");
+        }
+    }
+
     /**
      * Main method, used to run the application.
      *
@@ -72,17 +93,6 @@ public class MyMonolightApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
-        // Connect to telegram
-        TelegramBotsApi botsApi = new TelegramBotsApi();
-        ApiContextInitializer.init();
-
-        try {
-            botsApi.registerBot(new Telegram());
-            System.out.println("Connect To Telegram!");
-        } catch (TelegramApiRequestException e) {
-            e.printStackTrace();
-            System.out.println("Not Connect To Telegram");
-        }
     }
 
     private static void logApplicationStartup(Environment env) {

@@ -3,8 +3,6 @@ package uz.asz.myapp.telegram;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import uz.asz.myapp.domain.Instructor;
 import uz.asz.myapp.domain.Student;
@@ -18,14 +16,21 @@ public class CheckUserService {
 
     private final Logger log = LoggerFactory.getLogger(CheckUserService.class);
 
-    @Autowired
-    private InstructorRepository instructorRepository;
+    private final InstructorRepository instructorRepository;
 
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-    @Autowired
-    private TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
+
+    public CheckUserService(
+        InstructorRepository instructorRepository,
+        StudentRepository studentRepository,
+        TeacherRepository teacherRepository
+    ) {
+        this.instructorRepository = instructorRepository;
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
+    }
 
     public boolean checkInstructorInDb(long chatId) {
         Optional<Instructor> optionalInstructor = instructorRepository.findByChatId(String.valueOf(chatId));

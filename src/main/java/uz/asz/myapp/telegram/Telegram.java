@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -26,8 +21,13 @@ public class Telegram extends TelegramLongPollingBot {
     private static final String BOT_TOKEN = "1874688369:AAFdykv-BjpOJr_I3Zc5eCOMqnz8tx2BVs8";
     private final Logger log = LoggerFactory.getLogger(Telegram.class);
 
-    @Autowired
-    private CheckUserService checkUserService;
+    private final CheckUserService checkUserService;
+    private final RegisterUserService registerUserService;
+
+    public Telegram(CheckUserService checkUserService, RegisterUserService registerUserService) {
+        this.checkUserService = checkUserService;
+        this.registerUserService = registerUserService;
+    }
 
     @Override
     public String getBotToken() {
@@ -40,7 +40,7 @@ public class Telegram extends TelegramLongPollingBot {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText(message.getText());
         sendMessage.setChatId(message.getChatId());
-        //        checkUserService.checkTeacherInDb(message.getChatId()); //todo shuni chaqiromayamman
+        checkUserService.checkTeacherInDb(message.getChatId()); //todo shuni chaqiromayamman
         try {
             execute(sendMessage);
             contactButton(message.getChatId());
