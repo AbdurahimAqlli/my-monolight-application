@@ -14,9 +14,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 import uz.asz.myapp.config.ApplicationProperties;
+import uz.asz.myapp.telegram.Telegram;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
@@ -68,6 +72,17 @@ public class MyMonolightApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
+        // Connect to telegram
+        TelegramBotsApi botsApi = new TelegramBotsApi();
+        ApiContextInitializer.init();
+
+        try {
+            botsApi.registerBot(new Telegram());
+            System.out.println("Connect To Telegram!");
+        } catch (TelegramApiRequestException e) {
+            e.printStackTrace();
+            System.out.println("Not Connect To Telegram");
+        }
     }
 
     private static void logApplicationStartup(Environment env) {
