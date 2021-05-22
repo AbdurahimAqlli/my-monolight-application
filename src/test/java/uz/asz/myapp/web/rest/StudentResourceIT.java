@@ -39,6 +39,9 @@ class StudentResourceIT {
     private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CHAT_ID = "AAAAAAAAAA";
+    private static final String UPDATED_CHAT_ID = "BBBBBBBBBB";
+
     private static final Integer DEFAULT_AGE = 1;
     private static final Integer UPDATED_AGE = 2;
 
@@ -76,6 +79,7 @@ class StudentResourceIT {
             .firstName(DEFAULT_FIRST_NAME)
             .lastName(DEFAULT_LAST_NAME)
             .phoneNumber(DEFAULT_PHONE_NUMBER)
+            .chatId(DEFAULT_CHAT_ID)
             .age(DEFAULT_AGE)
             .language(DEFAULT_LANGUAGE)
             .category(DEFAULT_CATEGORY);
@@ -93,6 +97,7 @@ class StudentResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .phoneNumber(UPDATED_PHONE_NUMBER)
+            .chatId(UPDATED_CHAT_ID)
             .age(UPDATED_AGE)
             .language(UPDATED_LANGUAGE)
             .category(UPDATED_CATEGORY);
@@ -120,6 +125,7 @@ class StudentResourceIT {
         assertThat(testStudent.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testStudent.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
+        assertThat(testStudent.getChatId()).isEqualTo(DEFAULT_CHAT_ID);
         assertThat(testStudent.getAge()).isEqualTo(DEFAULT_AGE);
         assertThat(testStudent.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
         assertThat(testStudent.getCategory()).isEqualTo(DEFAULT_CATEGORY);
@@ -158,6 +164,7 @@ class StudentResourceIT {
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
+            .andExpect(jsonPath("$.[*].chatId").value(hasItem(DEFAULT_CHAT_ID)))
             .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE)))
             .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())));
@@ -178,6 +185,7 @@ class StudentResourceIT {
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER))
+            .andExpect(jsonPath("$.chatId").value(DEFAULT_CHAT_ID))
             .andExpect(jsonPath("$.age").value(DEFAULT_AGE))
             .andExpect(jsonPath("$.language").value(DEFAULT_LANGUAGE))
             .andExpect(jsonPath("$.category").value(DEFAULT_CATEGORY.toString()));
@@ -206,6 +214,7 @@ class StudentResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .phoneNumber(UPDATED_PHONE_NUMBER)
+            .chatId(UPDATED_CHAT_ID)
             .age(UPDATED_AGE)
             .language(UPDATED_LANGUAGE)
             .category(UPDATED_CATEGORY);
@@ -225,6 +234,7 @@ class StudentResourceIT {
         assertThat(testStudent.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testStudent.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testStudent.getChatId()).isEqualTo(UPDATED_CHAT_ID);
         assertThat(testStudent.getAge()).isEqualTo(UPDATED_AGE);
         assertThat(testStudent.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
         assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);
@@ -298,7 +308,7 @@ class StudentResourceIT {
         Student partialUpdatedStudent = new Student();
         partialUpdatedStudent.setId(student.getId());
 
-        partialUpdatedStudent.firstName(UPDATED_FIRST_NAME).language(UPDATED_LANGUAGE);
+        partialUpdatedStudent.firstName(UPDATED_FIRST_NAME).age(UPDATED_AGE).category(UPDATED_CATEGORY);
 
         restStudentMockMvc
             .perform(
@@ -315,9 +325,10 @@ class StudentResourceIT {
         assertThat(testStudent.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testStudent.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
-        assertThat(testStudent.getAge()).isEqualTo(DEFAULT_AGE);
-        assertThat(testStudent.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
-        assertThat(testStudent.getCategory()).isEqualTo(DEFAULT_CATEGORY);
+        assertThat(testStudent.getChatId()).isEqualTo(DEFAULT_CHAT_ID);
+        assertThat(testStudent.getAge()).isEqualTo(UPDATED_AGE);
+        assertThat(testStudent.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
+        assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);
     }
 
     @Test
@@ -336,6 +347,7 @@ class StudentResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .phoneNumber(UPDATED_PHONE_NUMBER)
+            .chatId(UPDATED_CHAT_ID)
             .age(UPDATED_AGE)
             .language(UPDATED_LANGUAGE)
             .category(UPDATED_CATEGORY);
@@ -355,6 +367,7 @@ class StudentResourceIT {
         assertThat(testStudent.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testStudent.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testStudent.getChatId()).isEqualTo(UPDATED_CHAT_ID);
         assertThat(testStudent.getAge()).isEqualTo(UPDATED_AGE);
         assertThat(testStudent.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
         assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);

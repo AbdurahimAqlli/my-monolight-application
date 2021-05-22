@@ -75,6 +75,7 @@ class StudentGatlingTest extends Simulation {
                 , "firstName":"SAMPLE_TEXT"
                 , "lastName":"SAMPLE_TEXT"
                 , "phoneNumber":"SAMPLE_TEXT"
+                , "chatId":"SAMPLE_TEXT"
                 , "age":"0"
                 , "language":"SAMPLE_TEXT"
                 , "category":"B"

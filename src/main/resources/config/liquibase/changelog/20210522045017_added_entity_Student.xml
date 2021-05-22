@@ -23,6 +23,9 @@
             <column name="phone_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="chat_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="age" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -61,6 +64,7 @@
             <column name="first_name" type="string"/>
             <column name="last_name" type="string"/>
             <column name="phone_number" type="string"/>
+            <column name="chat_id" type="string"/>
             <column name="age" type="numeric"/>
             <column name="language" type="string"/>
             <column name="category" type="string"/>

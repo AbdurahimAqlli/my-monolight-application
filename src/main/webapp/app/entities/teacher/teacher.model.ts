@@ -5,6 +5,7 @@ export interface ITeacher {
   firstName?: string | null;
   lastName?: string | null;
   phoneNumber?: string | null;
+  chatId?: string | null;
   age?: number | null;
   groups?: IGroup[] | null;
 }
@@ -15,6 +16,7 @@ export class Teacher implements ITeacher {
     public firstName?: string | null,
     public lastName?: string | null,
     public phoneNumber?: string | null,
+    public chatId?: string | null,
     public age?: number | null,
     public groups?: IGroup[] | null
   ) {}

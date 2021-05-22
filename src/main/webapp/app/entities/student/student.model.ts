@@ -8,6 +8,7 @@ export interface IStudent {
   firstName?: string | null;
   lastName?: string | null;
   phoneNumber?: string | null;
+  chatId?: string | null;
   age?: number | null;
   language?: string | null;
   category?: Category | null;
@@ -22,6 +23,7 @@ export class Student implements IStudent {
     public firstName?: string | null,
     public lastName?: string | null,
     public phoneNumber?: string | null,
+    public chatId?: string | null,
     public age?: number | null,
     public language?: string | null,
     public category?: Category | null,

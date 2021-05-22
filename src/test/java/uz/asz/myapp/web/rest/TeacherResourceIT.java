@@ -38,6 +38,9 @@ class TeacherResourceIT {
     private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CHAT_ID = "AAAAAAAAAA";
+    private static final String UPDATED_CHAT_ID = "BBBBBBBBBB";
+
     private static final Integer DEFAULT_AGE = 1;
     private static final Integer UPDATED_AGE = 2;
 
@@ -69,6 +72,7 @@ class TeacherResourceIT {
             .firstName(DEFAULT_FIRST_NAME)
             .lastName(DEFAULT_LAST_NAME)
             .phoneNumber(DEFAULT_PHONE_NUMBER)
+            .chatId(DEFAULT_CHAT_ID)
             .age(DEFAULT_AGE);
         return teacher;
     }
@@ -84,6 +88,7 @@ class TeacherResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .phoneNumber(UPDATED_PHONE_NUMBER)
+            .chatId(UPDATED_CHAT_ID)
             .age(UPDATED_AGE);
         return teacher;
     }
@@ -109,6 +114,7 @@ class TeacherResourceIT {
         assertThat(testTeacher.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testTeacher.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testTeacher.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
+        assertThat(testTeacher.getChatId()).isEqualTo(DEFAULT_CHAT_ID);
         assertThat(testTeacher.getAge()).isEqualTo(DEFAULT_AGE);
     }
 
@@ -145,6 +151,7 @@ class TeacherResourceIT {
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
+            .andExpect(jsonPath("$.[*].chatId").value(hasItem(DEFAULT_CHAT_ID)))
             .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)));
     }
 
@@ -163,6 +170,7 @@ class TeacherResourceIT {
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER))
+            .andExpect(jsonPath("$.chatId").value(DEFAULT_CHAT_ID))
             .andExpect(jsonPath("$.age").value(DEFAULT_AGE));
     }
 
@@ -185,7 +193,12 @@ class TeacherResourceIT {
         Teacher updatedTeacher = teacherRepository.findById(teacher.getId()).get();
         // Disconnect from session so that the updates on updatedTeacher are not directly saved in db
         em.detach(updatedTeacher);
-        updatedTeacher.firstName(UPDATED_FIRST_NAME).lastName(UPDATED_LAST_NAME).phoneNumber(UPDATED_PHONE_NUMBER).age(UPDATED_AGE);
+        updatedTeacher
+            .firstName(UPDATED_FIRST_NAME)
+            .lastName(UPDATED_LAST_NAME)
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .chatId(UPDATED_CHAT_ID)
+            .age(UPDATED_AGE);
 
         restTeacherMockMvc
             .perform(
@@ -202,6 +215,7 @@ class TeacherResourceIT {
         assertThat(testTeacher.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testTeacher.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testTeacher.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testTeacher.getChatId()).isEqualTo(UPDATED_CHAT_ID);
         assertThat(testTeacher.getAge()).isEqualTo(UPDATED_AGE);
     }
 
@@ -273,7 +287,7 @@ class TeacherResourceIT {
         Teacher partialUpdatedTeacher = new Teacher();
         partialUpdatedTeacher.setId(teacher.getId());
 
-        partialUpdatedTeacher.firstName(UPDATED_FIRST_NAME).phoneNumber(UPDATED_PHONE_NUMBER).age(UPDATED_AGE);
+        partialUpdatedTeacher.firstName(UPDATED_FIRST_NAME).phoneNumber(UPDATED_PHONE_NUMBER).chatId(UPDATED_CHAT_ID).age(UPDATED_AGE);
 
         restTeacherMockMvc
             .perform(
@@ -290,6 +304,7 @@ class TeacherResourceIT {
         assertThat(testTeacher.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testTeacher.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testTeacher.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testTeacher.getChatId()).isEqualTo(UPDATED_CHAT_ID);
         assertThat(testTeacher.getAge()).isEqualTo(UPDATED_AGE);
     }
 
@@ -305,7 +320,12 @@ class TeacherResourceIT {
         Teacher partialUpdatedTeacher = new Teacher();
         partialUpdatedTeacher.setId(teacher.getId());
 
-        partialUpdatedTeacher.firstName(UPDATED_FIRST_NAME).lastName(UPDATED_LAST_NAME).phoneNumber(UPDATED_PHONE_NUMBER).age(UPDATED_AGE);
+        partialUpdatedTeacher
+            .firstName(UPDATED_FIRST_NAME)
+            .lastName(UPDATED_LAST_NAME)
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .chatId(UPDATED_CHAT_ID)
+            .age(UPDATED_AGE);
 
         restTeacherMockMvc
             .perform(
@@ -322,6 +342,7 @@ class TeacherResourceIT {
         assertThat(testTeacher.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testTeacher.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testTeacher.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testTeacher.getChatId()).isEqualTo(UPDATED_CHAT_ID);
         assertThat(testTeacher.getAge()).isEqualTo(UPDATED_AGE);
     }
 

@@ -46,10 +46,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Instructor query and add missing value', () => {
         const student: IStudent = { id: 456 };
-        const instructor: IInstructor = { id: 81410 };
+        const instructor: IInstructor = { id: 70166 };
         student.instructor = instructor;
 
-        const instructorCollection: IInstructor[] = [{ id: 69756 }];
+        const instructorCollection: IInstructor[] = [{ id: 42237 }];
         spyOn(instructorService, 'query').and.returnValue(of(new HttpResponse({ body: instructorCollection })));
         const additionalInstructors = [instructor];
         const expectedCollection: IInstructor[] = [...additionalInstructors, ...instructorCollection];
@@ -84,7 +84,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const student: IStudent = { id: 456 };
-        const instructor: IInstructor = { id: 80632 };
+        const instructor: IInstructor = { id: 11018 };
         student.instructor = instructor;
         const group: IGroup = { id: 78851 };
         student.group = group;

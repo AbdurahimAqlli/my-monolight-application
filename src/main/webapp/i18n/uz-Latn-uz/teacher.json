@@ -21,6 +21,7 @@
       "firstName": "First Name",
       "lastName": "Last Name",
       "phoneNumber": "Phone Number",
+      "chatId": "Chat Id",
       "age": "Age",
       "group": "Group"
     }

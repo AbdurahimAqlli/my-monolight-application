@@ -20,6 +20,7 @@ export class TeacherUpdateComponent implements OnInit {
     firstName: [],
     lastName: [],
     phoneNumber: [],
+    chatId: [],
     age: [],
   });
 
@@ -70,6 +71,7 @@ export class TeacherUpdateComponent implements OnInit {
       firstName: teacher.firstName,
       lastName: teacher.lastName,
       phoneNumber: teacher.phoneNumber,
+      chatId: teacher.chatId,
       age: teacher.age,
     });
   }
@@ -81,6 +83,7 @@ export class TeacherUpdateComponent implements OnInit {
       firstName: this.editForm.get(['firstName'])!.value,
       lastName: this.editForm.get(['lastName'])!.value,
       phoneNumber: this.editForm.get(['phoneNumber'])!.value,
+      chatId: this.editForm.get(['chatId'])!.value,
       age: this.editForm.get(['age'])!.value,
     };
   }

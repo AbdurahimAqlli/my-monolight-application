@@ -133,6 +133,9 @@ public class StudentResource {
                     if (student.getPhoneNumber() != null) {
                         existingStudent.setPhoneNumber(student.getPhoneNumber());
                     }
+                    if (student.getChatId() != null) {
+                        existingStudent.setChatId(student.getChatId());
+                    }
                     if (student.getAge() != null) {
                         existingStudent.setAge(student.getAge());
                     }

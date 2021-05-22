@@ -31,6 +31,9 @@ public class Student implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "chat_id")
+    private String chatId;
+
     @Column(name = "age")
     private Integer age;
 
@@ -104,6 +107,19 @@ public class Student implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getChatId() {
+        return this.chatId;
+    }
+
+    public Student chatId(String chatId) {
+        this.chatId = chatId;
+        return this;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
     }
 
     public Integer getAge() {
@@ -217,6 +233,7 @@ public class Student implements Serializable {
             ", firstName='" + getFirstName() + "'" +
             ", lastName='" + getLastName() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
+            ", chatId='" + getChatId() + "'" +
             ", age=" + getAge() +
             ", language='" + getLanguage() + "'" +
             ", category='" + getCategory() + "'" +

@@ -133,6 +133,9 @@ public class InstructorResource {
                     if (instructor.getPhoneNumber() != null) {
                         existingInstructor.setPhoneNumber(instructor.getPhoneNumber());
                     }
+                    if (instructor.getChatId() != null) {
+                        existingInstructor.setChatId(instructor.getChatId());
+                    }
                     if (instructor.getAge() != null) {
                         existingInstructor.setAge(instructor.getAge());
                     }

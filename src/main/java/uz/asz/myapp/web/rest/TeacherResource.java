@@ -131,6 +131,9 @@ public class TeacherResource {
                     if (teacher.getPhoneNumber() != null) {
                         existingTeacher.setPhoneNumber(teacher.getPhoneNumber());
                     }
+                    if (teacher.getChatId() != null) {
+                        existingTeacher.setChatId(teacher.getChatId());
+                    }
                     if (teacher.getAge() != null) {
                         existingTeacher.setAge(teacher.getAge());
                     }

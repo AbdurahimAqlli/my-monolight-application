@@ -42,10 +42,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Teacher query and add missing value', () => {
         const group: IGroup = { id: 456 };
-        const teacher: ITeacher = { id: 64787 };
+        const teacher: ITeacher = { id: 49952 };
         group.teacher = teacher;
 
-        const teacherCollection: ITeacher[] = [{ id: 49952 }];
+        const teacherCollection: ITeacher[] = [{ id: 71466 }];
         spyOn(teacherService, 'query').and.returnValue(of(new HttpResponse({ body: teacherCollection })));
         const additionalTeachers = [teacher];
         const expectedCollection: ITeacher[] = [...additionalTeachers, ...teacherCollection];
@@ -61,7 +61,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const group: IGroup = { id: 456 };
-        const teacher: ITeacher = { id: 71466 };
+        const teacher: ITeacher = { id: 90344 };
         group.teacher = teacher;
 
         activatedRoute.data = of({ group });

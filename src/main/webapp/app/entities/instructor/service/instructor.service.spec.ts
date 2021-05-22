@@ -25,6 +25,7 @@ describe('Service Tests', () => {
         firstName: 'AAAAAAA',
         lastName: 'AAAAAAA',
         phoneNumber: 'AAAAAAA',
+        chatId: 'AAAAAAA',
         age: 0,
       };
     });
@@ -64,6 +65,7 @@ describe('Service Tests', () => {
             firstName: 'BBBBBB',
             lastName: 'BBBBBB',
             phoneNumber: 'BBBBBB',
+            chatId: 'BBBBBB',
             age: 1,
           },
           elemDefault
@@ -83,7 +85,7 @@ describe('Service Tests', () => {
           {
             firstName: 'BBBBBB',
             lastName: 'BBBBBB',
-            age: 1,
+            chatId: 'BBBBBB',
           },
           new Instructor()
         );
@@ -106,6 +108,7 @@ describe('Service Tests', () => {
             firstName: 'BBBBBB',
             lastName: 'BBBBBB',
             phoneNumber: 'BBBBBB',
+            chatId: 'BBBBBB',
             age: 1,
           },
           elemDefault
@@ -158,7 +161,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Instructor to an array', () => {
-          const instructorArray: IInstructor[] = [{ id: 123 }, { id: 456 }, { id: 48160 }];
+          const instructorArray: IInstructor[] = [{ id: 123 }, { id: 456 }, { id: 90996 }];
           const instructorCollection: IInstructor[] = [{ id: 123 }];
           expectedResult = service.addInstructorToCollectionIfMissing(instructorCollection, ...instructorArray);
           expect(expectedResult).toHaveLength(3);

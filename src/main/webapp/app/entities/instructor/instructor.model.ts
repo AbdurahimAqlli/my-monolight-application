@@ -5,6 +5,7 @@ export interface IInstructor {
   firstName?: string | null;
   lastName?: string | null;
   phoneNumber?: string | null;
+  chatId?: string | null;
   age?: number | null;
   students?: IStudent[] | null;
 }
@@ -15,6 +16,7 @@ export class Instructor implements IInstructor {
     public firstName?: string | null,
     public lastName?: string | null,
     public phoneNumber?: string | null,
+    public chatId?: string | null,
     public age?: number | null,
     public students?: IStudent[] | null
   ) {}

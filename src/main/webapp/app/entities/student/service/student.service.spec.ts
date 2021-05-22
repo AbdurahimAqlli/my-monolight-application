@@ -26,6 +26,7 @@ describe('Service Tests', () => {
         firstName: 'AAAAAAA',
         lastName: 'AAAAAAA',
         phoneNumber: 'AAAAAAA',
+        chatId: 'AAAAAAA',
         age: 0,
         language: 'AAAAAAA',
         category: Category.B,
@@ -67,6 +68,7 @@ describe('Service Tests', () => {
             firstName: 'BBBBBB',
             lastName: 'BBBBBB',
             phoneNumber: 'BBBBBB',
+            chatId: 'BBBBBB',
             age: 1,
             language: 'BBBBBB',
             category: 'BBBBBB',
@@ -87,7 +89,8 @@ describe('Service Tests', () => {
         const patchObject = Object.assign(
           {
             firstName: 'BBBBBB',
-            language: 'BBBBBB',
+            age: 1,
+            category: 'BBBBBB',
           },
           new Student()
         );
@@ -110,6 +113,7 @@ describe('Service Tests', () => {
             firstName: 'BBBBBB',
             lastName: 'BBBBBB',
             phoneNumber: 'BBBBBB',
+            chatId: 'BBBBBB',
             age: 1,
             language: 'BBBBBB',
             category: 'BBBBBB',
@@ -164,7 +168,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Student to an array', () => {
-          const studentArray: IStudent[] = [{ id: 123 }, { id: 456 }, { id: 75415 }];
+          const studentArray: IStudent[] = [{ id: 123 }, { id: 456 }, { id: 61512 }];
           const studentCollection: IStudent[] = [{ id: 123 }];
           expectedResult = service.addStudentToCollectionIfMissing(studentCollection, ...studentArray);
           expect(expectedResult).toHaveLength(3);
