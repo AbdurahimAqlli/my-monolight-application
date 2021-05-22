@@ -1,5 +1,6 @@
 package uz.asz.myapp.repository;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 import uz.asz.myapp.domain.Instructor;
@@ -9,4 +10,6 @@ import uz.asz.myapp.domain.Instructor;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface InstructorRepository extends JpaRepository<Instructor, Long> {}
+public interface InstructorRepository extends JpaRepository<Instructor, Long> {
+    Optional<Instructor> findByChatId(String chatId);
+}

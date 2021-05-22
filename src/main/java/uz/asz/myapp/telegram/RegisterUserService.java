@@ -2,55 +2,35 @@ package uz.asz.myapp.telegram;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import uz.asz.myapp.domain.Student;
+import uz.asz.myapp.repository.StudentRepository;
 
-//@Component todo shu annotationni yoqsam telegram bot ishlami qovotti agar yoqmasam  CheckUserService ,
-// todo RegisterUserService servicelarni  chaqiromayamman init bo`mayabdi null bo`lib qolib ketvotti
-public class Telegram extends TelegramLongPollingBot {
+@Service
+public class RegisterUserService {
 
-    private static final String BOT_USERNAME = "abdurahimasz_bot";
-    private static final String BOT_TOKEN = "1874688369:AAFdykv-BjpOJr_I3Zc5eCOMqnz8tx2BVs8";
-    private final Logger log = LoggerFactory.getLogger(Telegram.class);
+    private final Logger log = LoggerFactory.getLogger(RegisterUserService.class);
+    private final StudentRepository studentRepository;
 
-    @Autowired
-    private CheckUserService checkUserService;
-
-    @Override
-    public String getBotToken() {
-        return BOT_TOKEN;
+    public RegisterUserService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-    @Override
-    public void onUpdateReceived(Update update) {
-        Message message = update.getMessage();
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setText(message.getText());
-        sendMessage.setChatId(message.getChatId());
-        //        checkUserService.checkTeacherInDb(message.getChatId()); //todo shuni chaqiromayamman
-        try {
-            execute(sendMessage);
-            contactButton(message.getChatId());
-            branchButton(message.getChatId());
-        } catch (TelegramApiException e) {
-            log.warn("TelegramApiException ex {}", e.getMessage());
-        }
+    public boolean registerStudent(long chatId) {
+        Optional<Student> optionalStudent = studentRepository.findByChatId(String.valueOf(chatId));
+        log.info("optionalStudent {}", optionalStudent);
+        return optionalStudent.isPresent();
     }
 
-    private void contactButton(long chat_id) {
+    public SendMessage contactButton(long chat_id) {
         SendMessage sendMessage = new SendMessage();
         ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
         keyboard.setOneTimeKeyboard(true);
@@ -67,14 +47,10 @@ public class Telegram extends TelegramLongPollingBot {
         sendMessage.setChatId(chat_id);
         sendMessage.setText("Telefon raqamingizni jo'nating!");
         sendMessage.setReplyMarkup(keyboard);
-        try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+        return sendMessage;
     }
 
-    public void branchButton(long chat_id) {
+    public SendMessage branchButton(long chat_id) {
         SendMessage message = new SendMessage() // Create a message object object
             .setChatId(chat_id)
             .setText("Here is your keyboard");
@@ -108,15 +84,6 @@ public class Telegram extends TelegramLongPollingBot {
         keyboardMarkup.setKeyboard(keyboard);
         // Add it to the message
         message.setReplyMarkup(keyboardMarkup);
-        try {
-            execute(message); // Sending our message object to user
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public String getBotUsername() {
-        return BOT_USERNAME;
+        return message;
     }
 }
