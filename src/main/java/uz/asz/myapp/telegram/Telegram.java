@@ -1,11 +1,16 @@
 package uz.asz.myapp.telegram;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Telegram extends TelegramLongPollingBot {
@@ -27,8 +32,33 @@ public class Telegram extends TelegramLongPollingBot {
         sendMessage.setChatId(message.getChatId());
         try {
             execute(sendMessage);
+            contactButton(message.getChatId());
         } catch (TelegramApiException e) {
             log.warn("TelegramApiException ex {}", e.getMessage());
+        }
+    }
+
+    private void contactButton(long chat_id) {
+        SendMessage sendMessage = new SendMessage();
+        ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
+        keyboard.setOneTimeKeyboard(true);
+        keyboard.setResizeKeyboard(true);
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        KeyboardButton button = new KeyboardButton("Telefon raqaqmini yuborish");
+
+        button.setRequestContact(true);
+        row.add(button);
+        keyboardRows.add(row);
+        keyboard.setKeyboard(keyboardRows);
+        sendMessage.enableMarkdown(true);
+        sendMessage.setChatId(chat_id);
+        sendMessage.setText("Telefon raqamingizni jo'nating!");
+        sendMessage.setReplyMarkup(keyboard);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         }
     }
 
