@@ -1,0 +1,135 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-group-heading" data-cy="GroupCreateUpdateHeading" jhiTranslate="myMonolightApp.group.home.createOrEditLabel">
+        Create or edit a Group
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.group.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.group.category" for="field_category">Category</label>
+          <select class="form-control" name="category" formControlName="category" id="field_category" data-cy="category">
+            <option [ngValue]="null">{{ 'myMonolightApp.Category.null' | translate }}</option>
+            <option value="B">{{ 'myMonolightApp.Category.B' | translate }}</option>
+            <option value="BC">{{ 'myMonolightApp.Category.BC' | translate }}</option>
+            <option value="C">{{ 'myMonolightApp.Category.C' | translate }}</option>
+            <option value="D">{{ 'myMonolightApp.Category.D' | translate }}</option>
+            <option value="E">{{ 'myMonolightApp.Category.E' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.group.beginDrivingDate" for="field_beginDrivingDate"
+            >Begin Driving Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_beginDrivingDate"
+              data-cy="beginDrivingDate"
+              type="datetime-local"
+              class="form-control"
+              name="beginDrivingDate"
+              formControlName="beginDrivingDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.group.startDate" for="field_startDate">Start Date</label>
+          <div class="d-flex">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="datetime-local"
+              class="form-control"
+              name="startDate"
+              formControlName="startDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.group.endDate" for="field_endDate">End Date</label>
+          <div class="d-flex">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="datetime-local"
+              class="form-control"
+              name="endDate"
+              formControlName="endDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.group.telegramGroupLink" for="field_telegramGroupLink"
+            >Telegram Group Link</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="telegramGroupLink"
+            id="field_telegramGroupLink"
+            data-cy="telegramGroupLink"
+            formControlName="telegramGroupLink"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.group.status" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'myMonolightApp.GroupStatus.null' | translate }}</option>
+            <option value="BEGIN_LESSONS">{{ 'myMonolightApp.GroupStatus.BEGIN_LESSONS' | translate }}</option>
+            <option value="END_LESSONS">{{ 'myMonolightApp.GroupStatus.END_LESSONS' | translate }}</option>
+            <option value="SEARCH_STUDENTS">{{ 'myMonolightApp.GroupStatus.SEARCH_STUDENTS' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.group.teacher" for="field_teacher">Teacher</label>
+          <select class="form-control" id="field_teacher" data-cy="teacher" name="teacher" formControlName="teacher">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="teacherOption.id === editForm.get('teacher')!.value?.id ? editForm.get('teacher')!.value : teacherOption"
+              *ngFor="let teacherOption of teachersSharedCollection; trackBy: trackTeacherById"
+            >
+              {{ teacherOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

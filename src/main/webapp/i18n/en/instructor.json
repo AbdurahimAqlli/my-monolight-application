@@ -1,0 +1,28 @@
+{
+  "myMonolightApp": {
+    "instructor": {
+      "home": {
+        "title": "Instructors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Instructor",
+        "createOrEditLabel": "Create or edit a Instructor",
+        "notFound": "No Instructors found"
+      },
+      "created": "A new Instructor is created with identifier {{ param }}",
+      "updated": "A Instructor is updated with identifier {{ param }}",
+      "deleted": "A Instructor is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Instructor {{ id }}?"
+      },
+      "detail": {
+        "title": "Instructor"
+      },
+      "id": "ID",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "phoneNumber": "Phone Number",
+      "age": "Age",
+      "student": "Student"
+    }
+  }
+}

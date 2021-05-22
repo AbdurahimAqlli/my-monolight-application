@@ -42,6 +42,8 @@
     "jwtSecretKey": "ZGU2MzZiM2NjZWVmMjRkZDcxZThlYWRiMGVjZjA4YzNiZTcwMTEwNDhkZTU3ZmVkNDYzNjMxNzBkZmM2MGVlMjUxOGE1OTljZDBkZTk0MjgxYzQ0NzI1MmJmMjI1YjYzZTgwYzJhMjYyYTE4YzVjYjAxNjZiOThiZjFhYWE3MGY=",
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "reactive": false
+    "reactive": false,
+    "entities": ["Student", "Teacher", "Instructor", "Group", "Car"],
+    "lastLiquibaseTimestamp": 1621659021000
   }
 }

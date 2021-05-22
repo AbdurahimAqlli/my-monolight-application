@@ -1,0 +1,59 @@
+{
+  "name": "Group",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "category",
+      "fieldType": "Category",
+      "fieldValues": "B,BC,C,D,E"
+    },
+    {
+      "fieldName": "beginDrivingDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "telegramGroupLink",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "GroupStatus",
+      "fieldValues": "BEGIN_LESSONS,END_LESSONS,SEARCH_STUDENTS"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "group",
+      "relationshipName": "student"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "teacher",
+      "otherEntityRelationshipName": "group",
+      "relationshipName": "teacher"
+    }
+  ],
+  "entityTableName": "jhi_group",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210522045020"
+}

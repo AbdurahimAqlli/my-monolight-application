@@ -1,0 +1,32 @@
+{
+  "myMonolightApp": {
+    "group": {
+      "home": {
+        "title": "Groups",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Yangi Group qo`shish",
+        "createOrEditLabel": "Groupni tahrirlash",
+        "notFound": "No Groups found"
+      },
+      "created": "Group {{ param }} bilan qo`shildi",
+      "updated": "{{ param }}- Group saqlandi",
+      "deleted": "{{ param }}- Group o`chirildi",
+      "delete": {
+        "question": "{{ id }}- Groupni o`chirmoqchimisiz? "
+      },
+      "detail": {
+        "title": "Group"
+      },
+      "id": "ID",
+      "name": "Name",
+      "category": "Category",
+      "beginDrivingDate": "Begin Driving Date",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "telegramGroupLink": "Telegram Group Link",
+      "status": "Status",
+      "student": "Student",
+      "teacher": "Teacher"
+    }
+  }
+}

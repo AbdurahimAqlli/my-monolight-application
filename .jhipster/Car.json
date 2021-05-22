@@ -1,0 +1,45 @@
+{
+  "name": "Car",
+  "fields": [
+    {
+      "fieldName": "model",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "carOwnerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "yearOfCar",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "color",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "category",
+      "fieldType": "Category",
+      "fieldValues": "B,BC,C,D,E"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "car",
+      "relationshipName": "student",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "car",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210522045021"
+}

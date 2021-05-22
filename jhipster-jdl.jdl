@@ -1,0 +1,64 @@
+entity Student {
+	firstName String,
+    lastName String,
+    phoneNumber String,
+    age Integer,
+    language String,
+    category Category
+}
+
+entity Teacher {
+	firstName String,
+    lastName String,
+    phoneNumber String,
+    age Integer
+}
+
+entity Instructor {
+	firstName String,
+    lastName String,
+    phoneNumber String,
+    age Integer
+}
+
+entity Group{
+    name String,
+    category Category,
+    beginDrivingDate Instant,
+    startDate Instant,
+    endDate Instant,
+    telegramGroupLink String,
+    status GroupStatus
+}
+
+enum GroupStatus{
+BEGIN_LESSONS, END_LESSONS, SEARCH_STUDENTS
+}
+
+
+entity Car {
+	model String,
+    carOwnerName String,
+    yearOfCar Instant,
+    color String
+    category Category
+}
+
+enum Category{
+ B, BC, C, D, E
+}
+relationship OneToMany {
+	Teacher to Group{teacher}
+}
+
+relationship OneToMany {
+	Instructor{student} to Student{instructor}
+}
+
+relationship OneToMany {
+	Group to Student
+}
+
+relationship OneToOne {
+	Car to Student
+}

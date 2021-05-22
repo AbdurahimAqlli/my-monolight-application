@@ -1,0 +1,82 @@
+<div>
+  <h2 id="page-heading" data-cy="CarHeading">
+    <span jhiTranslate="myMonolightApp.car.home.title">Cars</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="myMonolightApp.car.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-car"
+        [routerLink]="['/car/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="myMonolightApp.car.home.createLabel"> Create a new Car </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="cars?.length === 0">
+    <span jhiTranslate="myMonolightApp.car.home.notFound">No cars found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="cars && cars.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.car.model">Model</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.car.carOwnerName">Car Owner Name</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.car.yearOfCar">Year Of Car</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.car.color">Color</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.car.category">Category</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.car.student">Student</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let car of cars; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/car', car.id, 'view']">{{ car.id }}</a>
+          </td>
+          <td>{{ car.model }}</td>
+          <td>{{ car.carOwnerName }}</td>
+          <td>{{ car.yearOfCar | formatMediumDatetime }}</td>
+          <td>{{ car.color }}</td>
+          <td jhiTranslate="{{ 'myMonolightApp.Category.' + car.category }}">{{ car.category }}</td>
+          <td>
+            <div *ngIf="car.student">
+              <a [routerLink]="['/student', car.student?.id, 'view']">{{ car.student?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/car', car.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/car', car.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(car)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

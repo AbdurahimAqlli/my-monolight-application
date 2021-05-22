@@ -1,0 +1,96 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-car-heading" data-cy="CarCreateUpdateHeading" jhiTranslate="myMonolightApp.car.home.createOrEditLabel">
+        Create or edit a Car
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.car.model" for="field_model">Model</label>
+          <input type="text" class="form-control" name="model" id="field_model" data-cy="model" formControlName="model" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.car.carOwnerName" for="field_carOwnerName">Car Owner Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="carOwnerName"
+            id="field_carOwnerName"
+            data-cy="carOwnerName"
+            formControlName="carOwnerName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.car.yearOfCar" for="field_yearOfCar">Year Of Car</label>
+          <div class="d-flex">
+            <input
+              id="field_yearOfCar"
+              data-cy="yearOfCar"
+              type="datetime-local"
+              class="form-control"
+              name="yearOfCar"
+              formControlName="yearOfCar"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.car.color" for="field_color">Color</label>
+          <input type="text" class="form-control" name="color" id="field_color" data-cy="color" formControlName="color" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.car.category" for="field_category">Category</label>
+          <select class="form-control" name="category" formControlName="category" id="field_category" data-cy="category">
+            <option [ngValue]="null">{{ 'myMonolightApp.Category.null' | translate }}</option>
+            <option value="B">{{ 'myMonolightApp.Category.B' | translate }}</option>
+            <option value="BC">{{ 'myMonolightApp.Category.BC' | translate }}</option>
+            <option value="C">{{ 'myMonolightApp.Category.C' | translate }}</option>
+            <option value="D">{{ 'myMonolightApp.Category.D' | translate }}</option>
+            <option value="E">{{ 'myMonolightApp.Category.E' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="myMonolightApp.car.student" for="field_student">Student</label>
+          <select class="form-control" id="field_student" data-cy="student" name="student" formControlName="student">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="studentOption.id === editForm.get('student')!.value?.id ? editForm.get('student')!.value : studentOption"
+              *ngFor="let studentOption of studentsCollection; trackBy: trackStudentById"
+            >
+              {{ studentOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

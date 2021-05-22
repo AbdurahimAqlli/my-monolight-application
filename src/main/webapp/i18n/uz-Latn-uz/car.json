@@ -1,0 +1,29 @@
+{
+  "myMonolightApp": {
+    "car": {
+      "home": {
+        "title": "Cars",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Yangi Car qo`shish",
+        "createOrEditLabel": "Carni tahrirlash",
+        "notFound": "No Cars found"
+      },
+      "created": "Car {{ param }} bilan qo`shildi",
+      "updated": "{{ param }}- Car saqlandi",
+      "deleted": "{{ param }}- Car o`chirildi",
+      "delete": {
+        "question": "{{ id }}- Carni o`chirmoqchimisiz? "
+      },
+      "detail": {
+        "title": "Car"
+      },
+      "id": "ID",
+      "model": "Model",
+      "carOwnerName": "Car Owner Name",
+      "yearOfCar": "Year Of Car",
+      "color": "Color",
+      "category": "Category",
+      "student": "Student"
+    }
+  }
+}

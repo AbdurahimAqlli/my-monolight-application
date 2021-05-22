@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="group">
+      <h2 data-cy="groupDetailsHeading"><span jhiTranslate="myMonolightApp.group.detail.title">Group</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ group.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="myMonolightApp.group.name">Name</span></dt>
+        <dd>
+          <span>{{ group.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="myMonolightApp.group.category">Category</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'myMonolightApp.Category.' + group.category }}">{{ group.category }}</span>
+        </dd>
+        <dt><span jhiTranslate="myMonolightApp.group.beginDrivingDate">Begin Driving Date</span></dt>
+        <dd>
+          <span>{{ group.beginDrivingDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="myMonolightApp.group.startDate">Start Date</span></dt>
+        <dd>
+          <span>{{ group.startDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="myMonolightApp.group.endDate">End Date</span></dt>
+        <dd>
+          <span>{{ group.endDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="myMonolightApp.group.telegramGroupLink">Telegram Group Link</span></dt>
+        <dd>
+          <span>{{ group.telegramGroupLink }}</span>
+        </dd>
+        <dt><span jhiTranslate="myMonolightApp.group.status">Status</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'myMonolightApp.GroupStatus.' + group.status }}">{{ group.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="myMonolightApp.group.teacher">Teacher</span></dt>
+        <dd>
+          <div *ngIf="group.teacher">
+            <a [routerLink]="['/teacher', group.teacher?.id, 'view']">{{ group.teacher?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/group', group.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

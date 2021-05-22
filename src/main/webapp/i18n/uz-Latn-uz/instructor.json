@@ -1,0 +1,28 @@
+{
+  "myMonolightApp": {
+    "instructor": {
+      "home": {
+        "title": "Instructors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Yangi Instructor qo`shish",
+        "createOrEditLabel": "Instructorni tahrirlash",
+        "notFound": "No Instructors found"
+      },
+      "created": "Instructor {{ param }} bilan qo`shildi",
+      "updated": "{{ param }}- Instructor saqlandi",
+      "deleted": "{{ param }}- Instructor o`chirildi",
+      "delete": {
+        "question": "{{ id }}- Instructorni o`chirmoqchimisiz? "
+      },
+      "detail": {
+        "title": "Instructor"
+      },
+      "id": "ID",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "phoneNumber": "Phone Number",
+      "age": "Age",
+      "student": "Student"
+    }
+  }
+}
