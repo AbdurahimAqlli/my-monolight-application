@@ -58,7 +58,7 @@
           <td jhiTranslate="{{ 'myMonolightApp.GroupStatus.' + group.status }}">{{ group.status }}</td>
           <td>
             <div *ngIf="group.teacher">
-              <a [routerLink]="['/teacher', group.teacher?.id, 'view']">{{ group.teacher?.id }}</a>
+              <a [routerLink]="['/teacher', group.teacher?.id, 'view']">{{ group.teacher?.firstName! + group.teacher?.lastName! }}</a>
             </div>
           </td>
           <td class="text-right">
