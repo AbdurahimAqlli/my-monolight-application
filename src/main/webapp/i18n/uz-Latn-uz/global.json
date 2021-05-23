@@ -7,11 +7,11 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Ma`lumotlar",
-        "student": "Student",
-        "teacher": "Teacher",
-        "instructor": "Instructor",
-        "group": "Group",
-        "car": "Car",
+        "student": "O`quvchilar",
+        "teacher": "O`qituvchilar",
+        "instructor": "Instructorlar",
+        "group": "Guruhlar",
+        "car": "Mashinalar",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
