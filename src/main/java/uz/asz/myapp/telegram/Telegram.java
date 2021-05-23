@@ -128,14 +128,14 @@ public class Telegram extends TelegramLongPollingBot {
             }
             if (checkUserService.checkTeacherInDb(message.getChatId())) {
                 SendMessage sendMessage = new SendMessage();
-                sendMessage.setText("salom ustoz che gap");
+                sendMessage.setText("salom ustoz nma gap");
                 sendMessage.setChatId(message.getChatId());
                 stepEnums = StepEnums.MAIN;
                 execute(sendMessage);
             }
             if (checkUserService.checkInstructorInDb(message.getChatId())) {
                 SendMessage sendMessage = new SendMessage();
-                sendMessage.setText("salom instruktor che gap");
+                sendMessage.setText("salom instruktor nma gap");
                 sendMessage.setChatId(message.getChatId());
                 stepEnums = StepEnums.MAIN;
                 execute(sendMessage);
@@ -160,7 +160,7 @@ public class Telegram extends TelegramLongPollingBot {
                 student.setChatId(String.valueOf(message.getChatId()));
                 student.setName(message.getContact().getFirstName());
                 studentRepository.save(student);
-                execute(registerUserService.contactButton(message.getChatId()));
+                execute(registerUserService.branchButton(message.getChatId()));
                 return;
             }
 

@@ -53,7 +53,7 @@ public class RegisterUserService {
     public SendMessage branchButton(long chat_id) {
         SendMessage message = new SendMessage() // Create a message object object
             .setChatId(chat_id)
-            .setText("Here is your keyboard");
+            .setText("menulardan birini tanlang");
         // Create ReplyKeyboardMarkup object
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         // Create the keyboard (list of keyboard rows)
