@@ -42,10 +42,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call student query and add missing value', () => {
         const car: ICar = { id: 456 };
-        const student: IStudent = { id: 86635 };
+        const student: IStudent = { id: 75415 };
         car.student = student;
 
-        const studentCollection: IStudent[] = [{ id: 13984 }];
+        const studentCollection: IStudent[] = [{ id: 61512 }];
         spyOn(studentService, 'query').and.returnValue(of(new HttpResponse({ body: studentCollection })));
         const expectedCollection: IStudent[] = [student, ...studentCollection];
         spyOn(studentService, 'addStudentToCollectionIfMissing').and.returnValue(expectedCollection);
@@ -60,7 +60,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const car: ICar = { id: 456 };
-        const student: IStudent = { id: 37589 };
+        const student: IStudent = { id: 86635 };
         car.student = student;
 
         activatedRoute.data = of({ car });

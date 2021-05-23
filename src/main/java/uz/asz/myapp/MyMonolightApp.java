@@ -21,6 +21,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 import uz.asz.myapp.config.ApplicationProperties;
+import uz.asz.myapp.repository.StudentRepository;
 import uz.asz.myapp.telegram.CheckUserService;
 import uz.asz.myapp.telegram.RegisterUserService;
 import uz.asz.myapp.telegram.Telegram;
@@ -34,11 +35,18 @@ public class MyMonolightApp implements InitializingBean {
     private final Environment env;
     private final CheckUserService checkUserService;
     private final RegisterUserService registerUserService;
+    private final StudentRepository studentRepository;
 
-    public MyMonolightApp(Environment env, CheckUserService checkUserService, RegisterUserService registerUserService) {
+    public MyMonolightApp(
+        Environment env,
+        CheckUserService checkUserService,
+        RegisterUserService registerUserService,
+        StudentRepository studentRepository
+    ) {
         this.env = env;
         this.checkUserService = checkUserService;
         this.registerUserService = registerUserService;
+        this.studentRepository = studentRepository;
     }
 
     /**
@@ -75,7 +83,7 @@ public class MyMonolightApp implements InitializingBean {
         // Instantiate Telegram Bots API
         TelegramBotsApi botsApi = new TelegramBotsApi();
         try {
-            botsApi.registerBot(new Telegram(checkUserService, registerUserService));
+            botsApi.registerBot(new Telegram(checkUserService, registerUserService, studentRepository));
             System.out.println("Connect To Telegram!");
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();

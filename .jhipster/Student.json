@@ -2,11 +2,11 @@
   "name": "Student",
   "fields": [
     {
-      "fieldName": "firstName",
+      "fieldName": "name",
       "fieldType": "String"
     },
     {
-      "fieldName": "lastName",
+      "fieldName": "contactNumber",
       "fieldType": "String"
     },
     {
@@ -15,14 +15,6 @@
     },
     {
       "fieldName": "chatId",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "age",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "language",
       "fieldType": "String"
     },
     {

@@ -33,12 +33,10 @@
       <thead>
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="myMonolightApp.student.firstName">First Name</span></th>
-          <th scope="col"><span jhiTranslate="myMonolightApp.student.lastName">Last Name</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.student.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.student.contactNumber">Contact Number</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.phoneNumber">Phone Number</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.chatId">Chat Id</span></th>
-          <th scope="col"><span jhiTranslate="myMonolightApp.student.age">Age</span></th>
-          <th scope="col"><span jhiTranslate="myMonolightApp.student.language">Language</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.category">Category</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.instructor">Instructor</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.group">Group</span></th>
@@ -50,12 +48,10 @@
           <td>
             <a [routerLink]="['/student', student.id, 'view']">{{ student.id }}</a>
           </td>
-          <td>{{ student.firstName }}</td>
-          <td>{{ student.lastName }}</td>
+          <td>{{ student.name }}</td>
+          <td>{{ student.contactNumber }}</td>
           <td>{{ student.phoneNumber }}</td>
           <td>{{ student.chatId }}</td>
-          <td>{{ student.age }}</td>
-          <td>{{ student.language }}</td>
           <td jhiTranslate="{{ 'myMonolightApp.Category.' + student.category }}">{{ student.category }}</td>
           <td>
             <div *ngIf="student.instructor">

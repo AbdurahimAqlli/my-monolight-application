@@ -30,23 +30,17 @@ import uz.asz.myapp.repository.StudentRepository;
 @WithMockUser
 class StudentResourceIT {
 
-    private static final String DEFAULT_FIRST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_FIRST_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_LAST_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_CONTACT_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_CONTACT_NUMBER = "BBBBBBBBBB";
 
     private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
 
     private static final String DEFAULT_CHAT_ID = "AAAAAAAAAA";
     private static final String UPDATED_CHAT_ID = "BBBBBBBBBB";
-
-    private static final Integer DEFAULT_AGE = 1;
-    private static final Integer UPDATED_AGE = 2;
-
-    private static final String DEFAULT_LANGUAGE = "AAAAAAAAAA";
-    private static final String UPDATED_LANGUAGE = "BBBBBBBBBB";
 
     private static final Category DEFAULT_CATEGORY = Category.B;
     private static final Category UPDATED_CATEGORY = Category.BC;
@@ -76,12 +70,10 @@ class StudentResourceIT {
      */
     public static Student createEntity(EntityManager em) {
         Student student = new Student()
-            .firstName(DEFAULT_FIRST_NAME)
-            .lastName(DEFAULT_LAST_NAME)
+            .name(DEFAULT_NAME)
+            .contactNumber(DEFAULT_CONTACT_NUMBER)
             .phoneNumber(DEFAULT_PHONE_NUMBER)
             .chatId(DEFAULT_CHAT_ID)
-            .age(DEFAULT_AGE)
-            .language(DEFAULT_LANGUAGE)
             .category(DEFAULT_CATEGORY);
         return student;
     }
@@ -94,12 +86,10 @@ class StudentResourceIT {
      */
     public static Student createUpdatedEntity(EntityManager em) {
         Student student = new Student()
-            .firstName(UPDATED_FIRST_NAME)
-            .lastName(UPDATED_LAST_NAME)
+            .name(UPDATED_NAME)
+            .contactNumber(UPDATED_CONTACT_NUMBER)
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .chatId(UPDATED_CHAT_ID)
-            .age(UPDATED_AGE)
-            .language(UPDATED_LANGUAGE)
             .category(UPDATED_CATEGORY);
         return student;
     }
@@ -122,12 +112,10 @@ class StudentResourceIT {
         List<Student> studentList = studentRepository.findAll();
         assertThat(studentList).hasSize(databaseSizeBeforeCreate + 1);
         Student testStudent = studentList.get(studentList.size() - 1);
-        assertThat(testStudent.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
-        assertThat(testStudent.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
+        assertThat(testStudent.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testStudent.getContactNumber()).isEqualTo(DEFAULT_CONTACT_NUMBER);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
         assertThat(testStudent.getChatId()).isEqualTo(DEFAULT_CHAT_ID);
-        assertThat(testStudent.getAge()).isEqualTo(DEFAULT_AGE);
-        assertThat(testStudent.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
         assertThat(testStudent.getCategory()).isEqualTo(DEFAULT_CATEGORY);
     }
 
@@ -161,12 +149,10 @@ class StudentResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(student.getId().intValue())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].contactNumber").value(hasItem(DEFAULT_CONTACT_NUMBER)))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
             .andExpect(jsonPath("$.[*].chatId").value(hasItem(DEFAULT_CHAT_ID)))
-            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
-            .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE)))
             .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())));
     }
 
@@ -182,12 +168,10 @@ class StudentResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(student.getId().intValue()))
-            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.contactNumber").value(DEFAULT_CONTACT_NUMBER))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER))
             .andExpect(jsonPath("$.chatId").value(DEFAULT_CHAT_ID))
-            .andExpect(jsonPath("$.age").value(DEFAULT_AGE))
-            .andExpect(jsonPath("$.language").value(DEFAULT_LANGUAGE))
             .andExpect(jsonPath("$.category").value(DEFAULT_CATEGORY.toString()));
     }
 
@@ -211,12 +195,10 @@ class StudentResourceIT {
         // Disconnect from session so that the updates on updatedStudent are not directly saved in db
         em.detach(updatedStudent);
         updatedStudent
-            .firstName(UPDATED_FIRST_NAME)
-            .lastName(UPDATED_LAST_NAME)
+            .name(UPDATED_NAME)
+            .contactNumber(UPDATED_CONTACT_NUMBER)
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .chatId(UPDATED_CHAT_ID)
-            .age(UPDATED_AGE)
-            .language(UPDATED_LANGUAGE)
             .category(UPDATED_CATEGORY);
 
         restStudentMockMvc
@@ -231,12 +213,10 @@ class StudentResourceIT {
         List<Student> studentList = studentRepository.findAll();
         assertThat(studentList).hasSize(databaseSizeBeforeUpdate);
         Student testStudent = studentList.get(studentList.size() - 1);
-        assertThat(testStudent.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
-        assertThat(testStudent.getLastName()).isEqualTo(UPDATED_LAST_NAME);
+        assertThat(testStudent.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testStudent.getContactNumber()).isEqualTo(UPDATED_CONTACT_NUMBER);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
         assertThat(testStudent.getChatId()).isEqualTo(UPDATED_CHAT_ID);
-        assertThat(testStudent.getAge()).isEqualTo(UPDATED_AGE);
-        assertThat(testStudent.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
         assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);
     }
 
@@ -308,7 +288,7 @@ class StudentResourceIT {
         Student partialUpdatedStudent = new Student();
         partialUpdatedStudent.setId(student.getId());
 
-        partialUpdatedStudent.firstName(UPDATED_FIRST_NAME).age(UPDATED_AGE).category(UPDATED_CATEGORY);
+        partialUpdatedStudent.name(UPDATED_NAME).category(UPDATED_CATEGORY);
 
         restStudentMockMvc
             .perform(
@@ -322,12 +302,10 @@ class StudentResourceIT {
         List<Student> studentList = studentRepository.findAll();
         assertThat(studentList).hasSize(databaseSizeBeforeUpdate);
         Student testStudent = studentList.get(studentList.size() - 1);
-        assertThat(testStudent.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
-        assertThat(testStudent.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
+        assertThat(testStudent.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testStudent.getContactNumber()).isEqualTo(DEFAULT_CONTACT_NUMBER);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
         assertThat(testStudent.getChatId()).isEqualTo(DEFAULT_CHAT_ID);
-        assertThat(testStudent.getAge()).isEqualTo(UPDATED_AGE);
-        assertThat(testStudent.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
         assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);
     }
 
@@ -344,12 +322,10 @@ class StudentResourceIT {
         partialUpdatedStudent.setId(student.getId());
 
         partialUpdatedStudent
-            .firstName(UPDATED_FIRST_NAME)
-            .lastName(UPDATED_LAST_NAME)
+            .name(UPDATED_NAME)
+            .contactNumber(UPDATED_CONTACT_NUMBER)
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .chatId(UPDATED_CHAT_ID)
-            .age(UPDATED_AGE)
-            .language(UPDATED_LANGUAGE)
             .category(UPDATED_CATEGORY);
 
         restStudentMockMvc
@@ -364,12 +340,10 @@ class StudentResourceIT {
         List<Student> studentList = studentRepository.findAll();
         assertThat(studentList).hasSize(databaseSizeBeforeUpdate);
         Student testStudent = studentList.get(studentList.size() - 1);
-        assertThat(testStudent.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
-        assertThat(testStudent.getLastName()).isEqualTo(UPDATED_LAST_NAME);
+        assertThat(testStudent.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testStudent.getContactNumber()).isEqualTo(UPDATED_CONTACT_NUMBER);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
         assertThat(testStudent.getChatId()).isEqualTo(UPDATED_CHAT_ID);
-        assertThat(testStudent.getAge()).isEqualTo(UPDATED_AGE);
-        assertThat(testStudent.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
         assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);
     }
 

@@ -124,23 +124,17 @@ public class StudentResource {
             .findById(student.getId())
             .map(
                 existingStudent -> {
-                    if (student.getFirstName() != null) {
-                        existingStudent.setFirstName(student.getFirstName());
+                    if (student.getName() != null) {
+                        existingStudent.setName(student.getName());
                     }
-                    if (student.getLastName() != null) {
-                        existingStudent.setLastName(student.getLastName());
+                    if (student.getContactNumber() != null) {
+                        existingStudent.setContactNumber(student.getContactNumber());
                     }
                     if (student.getPhoneNumber() != null) {
                         existingStudent.setPhoneNumber(student.getPhoneNumber());
                     }
                     if (student.getChatId() != null) {
                         existingStudent.setChatId(student.getChatId());
-                    }
-                    if (student.getAge() != null) {
-                        existingStudent.setAge(student.getAge());
-                    }
-                    if (student.getLanguage() != null) {
-                        existingStudent.setLanguage(student.getLanguage());
                     }
                     if (student.getCategory() != null) {
                         existingStudent.setCategory(student.getCategory());

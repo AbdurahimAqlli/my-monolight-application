@@ -22,23 +22,17 @@ public class Student implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "contact_number")
+    private String contactNumber;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(name = "chat_id")
     private String chatId;
-
-    @Column(name = "age")
-    private Integer age;
-
-    @Column(name = "language")
-    private String language;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
@@ -70,30 +64,30 @@ public class Student implements Serializable {
         return this;
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getName() {
+        return this.name;
     }
 
-    public Student firstName(String firstName) {
-        this.firstName = firstName;
+    public Student name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return this.lastName;
+    public String getContactNumber() {
+        return this.contactNumber;
     }
 
-    public Student lastName(String lastName) {
-        this.lastName = lastName;
+    public Student contactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
         return this;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public String getPhoneNumber() {
@@ -120,32 +114,6 @@ public class Student implements Serializable {
 
     public void setChatId(String chatId) {
         this.chatId = chatId;
-    }
-
-    public Integer getAge() {
-        return this.age;
-    }
-
-    public Student age(Integer age) {
-        this.age = age;
-        return this;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getLanguage() {
-        return this.language;
-    }
-
-    public Student language(String language) {
-        this.language = language;
-        return this;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     public Category getCategory() {
@@ -230,12 +198,10 @@ public class Student implements Serializable {
     public String toString() {
         return "Student{" +
             "id=" + getId() +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
+            ", name='" + getName() + "'" +
+            ", contactNumber='" + getContactNumber() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", chatId='" + getChatId() + "'" +
-            ", age=" + getAge() +
-            ", language='" + getLanguage() + "'" +
             ", category='" + getCategory() + "'" +
             "}";
     }

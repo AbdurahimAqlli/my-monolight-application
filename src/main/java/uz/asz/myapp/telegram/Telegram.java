@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import uz.asz.myapp.domain.Student;
+import uz.asz.myapp.repository.StudentRepository;
 
 @Component
 public class Telegram extends TelegramLongPollingBot {
@@ -29,10 +31,12 @@ public class Telegram extends TelegramLongPollingBot {
 
     private final CheckUserService checkUserService;
     private final RegisterUserService registerUserService;
+    private final StudentRepository studentRepository;
 
-    public Telegram(CheckUserService checkUserService, RegisterUserService registerUserService) {
+    public Telegram(CheckUserService checkUserService, RegisterUserService registerUserService, StudentRepository studentRepository) {
         this.checkUserService = checkUserService;
         this.registerUserService = registerUserService;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -71,21 +75,21 @@ public class Telegram extends TelegramLongPollingBot {
                 stepEnums = StepEnums.BEGIN;
             }
             if (stepEnums == StepEnums.BEGIN) {
+                stepEnums = StepEnums.SAVE_CONTACT;
+                execute(registerUserService.contactButton(message.getChatId()));
+                return;
+            }
+            if (stepEnums == StepEnums.SAVE_CONTACT) {
                 stepEnums = StepEnums.MAIN;
+                Student student = new Student();
+                student.setContactNumber(message.getContact().getPhoneNumber());
+                student.setChatId(String.valueOf(message.getChatId()));
+                student.setName(message.getContact().getFirstName() + message.getContact().getFirstName());
+                studentRepository.save(student);
                 execute(registerUserService.contactButton(message.getChatId()));
                 return;
             }
 
-            Student student = new Student();
-            if (Objects.equals(message.getText(), "\uD83D\uDCDD Отправить заявку на обучение")) {
-                SendMessage sendMessage = new SendMessage();
-                stepEnums = StepEnums.REGISTER_FOR_TEACHING_1;
-                sendMessage.setChatId(message.getChatId());
-                sendMessage.setText("✅ Отправьте нам Ф.И.О.");
-                student.setChatId(String.valueOf(message.getChatId()));
-                execute(sendMessage);
-                return;
-            }
             if (Objects.equals(message.getText(), "\uD83D\uDCF0 Необходимые документы")) {
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setText(
@@ -169,12 +173,33 @@ public class Telegram extends TelegramLongPollingBot {
                 execute(sendLocation);
                 return;
             }
+
+            if (Objects.equals(message.getText(), "\uD83D\uDCDD Отправить заявку на обучение")) {
+                Student student;
+
+                SendMessage sendMessage = new SendMessage();
+
+                Optional<Student> optionalStudent = studentRepository.findByChatId(String.valueOf(message.getChatId()));
+
+                student = optionalStudent.orElseGet(Student::new);
+                stepEnums = StepEnums.REGISTER_FOR_TEACHING_1;
+
+                sendMessage.setChatId(message.getChatId());
+                sendMessage.setText("✅ Отправьте нам Ф.И.О.");
+                student.setChatId(String.valueOf(message.getChatId()));
+
+                execute(sendMessage);
+                return;
+            }
             if (stepEnums == StepEnums.REGISTER_FOR_TEACHING_1) {
+                Student student;
+                Optional<Student> optionalStudent = studentRepository.findByChatId(String.valueOf(message.getChatId()));
+                student = optionalStudent.orElseGet(Student::new);
+
                 stepEnums = StepEnums.REGISTER_FOR_TEACHING_2;
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setChatId(message.getChatId());
-                student.setFirstName(message.getForwardSenderName());
-                student.setLastName(message.getForwardSenderName());
+                student.setName(message.getForwardSenderName() + message.getText());
 
                 sendMessage.setText("✅ Отправьте свой номер телефона");
                 execute(sendMessage);
@@ -183,6 +208,11 @@ public class Telegram extends TelegramLongPollingBot {
             }
             if (stepEnums == StepEnums.REGISTER_FOR_TEACHING_2) {
                 stepEnums = StepEnums.REGISTER_FOR_TEACHING_3;
+
+                Student student;
+                Optional<Student> optionalStudent = studentRepository.findByChatId(String.valueOf(message.getChatId()));
+                student = optionalStudent.orElseGet(Student::new);
+
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setChatId(message.getChatId());
                 sendMessage.setText("✅ В какой смене вы хотели бы обучаться?");
@@ -191,6 +221,10 @@ public class Telegram extends TelegramLongPollingBot {
                 return;
             }
             if (stepEnums == StepEnums.REGISTER_FOR_TEACHING_3) {
+                Student student;
+                Optional<Student> optionalStudent = studentRepository.findByChatId(String.valueOf(message.getChatId()));
+                student = optionalStudent.orElseGet(Student::new);
+                //todo
                 stepEnums = StepEnums.REGISTER_FOR_TEACHING_4;
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setChatId(message.getChatId());

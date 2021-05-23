@@ -23,12 +23,10 @@ describe('Service Tests', () => {
 
       elemDefault = {
         id: 0,
-        firstName: 'AAAAAAA',
-        lastName: 'AAAAAAA',
+        name: 'AAAAAAA',
+        contactNumber: 'AAAAAAA',
         phoneNumber: 'AAAAAAA',
         chatId: 'AAAAAAA',
-        age: 0,
-        language: 'AAAAAAA',
         category: Category.B,
       };
     });
@@ -65,12 +63,10 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
-            firstName: 'BBBBBB',
-            lastName: 'BBBBBB',
+            name: 'BBBBBB',
+            contactNumber: 'BBBBBB',
             phoneNumber: 'BBBBBB',
             chatId: 'BBBBBB',
-            age: 1,
-            language: 'BBBBBB',
             category: 'BBBBBB',
           },
           elemDefault
@@ -88,8 +84,7 @@ describe('Service Tests', () => {
       it('should partial update a Student', () => {
         const patchObject = Object.assign(
           {
-            firstName: 'BBBBBB',
-            age: 1,
+            name: 'BBBBBB',
             category: 'BBBBBB',
           },
           new Student()
@@ -110,12 +105,10 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
-            firstName: 'BBBBBB',
-            lastName: 'BBBBBB',
+            name: 'BBBBBB',
+            contactNumber: 'BBBBBB',
             phoneNumber: 'BBBBBB',
             chatId: 'BBBBBB',
-            age: 1,
-            language: 'BBBBBB',
             category: 'BBBBBB',
           },
           elemDefault
@@ -168,7 +161,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Student to an array', () => {
-          const studentArray: IStudent[] = [{ id: 123 }, { id: 456 }, { id: 61512 }];
+          const studentArray: IStudent[] = [{ id: 123 }, { id: 456 }, { id: 28764 }];
           const studentCollection: IStudent[] = [{ id: 123 }];
           expectedResult = service.addStudentToCollectionIfMissing(studentCollection, ...studentArray);
           expect(expectedResult).toHaveLength(3);

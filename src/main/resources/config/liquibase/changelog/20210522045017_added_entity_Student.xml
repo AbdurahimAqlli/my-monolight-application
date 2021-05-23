@@ -14,22 +14,16 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="first_name" type="varchar(255)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="last_name" type="varchar(255)">
+            <column name="contact_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="phone_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="chat_id" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            <column name="age" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="language" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="category" type="varchar(255)">
@@ -61,12 +55,10 @@
                   separator=";"
                   tableName="student">
             <column name="id" type="numeric"/>
-            <column name="first_name" type="string"/>
-            <column name="last_name" type="string"/>
+            <column name="name" type="string"/>
+            <column name="contact_number" type="string"/>
             <column name="phone_number" type="string"/>
             <column name="chat_id" type="string"/>
-            <column name="age" type="numeric"/>
-            <column name="language" type="string"/>
             <column name="category" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
