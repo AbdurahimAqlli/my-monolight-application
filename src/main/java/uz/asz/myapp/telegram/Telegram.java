@@ -120,7 +120,7 @@ public class Telegram extends TelegramLongPollingBot {
             if (checkUserService.checkStudentInDb(message.getChatId())) {
                 if (null == stepEnums) {
                     stepEnums = StepEnums.MAIN;
-                } else stepEnums = stepEnums;
+                }
             }
             if (stepEnums == null) {
                 stepEnums = StepEnums.BEGIN;
