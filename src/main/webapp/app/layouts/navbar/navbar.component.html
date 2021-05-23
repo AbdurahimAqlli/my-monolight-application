@@ -42,7 +42,7 @@
           </span>
         </a>
         <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="student"
@@ -54,7 +54,7 @@
               <span jhiTranslate="global.menu.entities.student">Student</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="teacher"
@@ -66,7 +66,7 @@
               <span jhiTranslate="global.menu.entities.teacher">Teacher</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="instructor"
@@ -78,7 +78,7 @@
               <span jhiTranslate="global.menu.entities.instructor">Instructor</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="group"
@@ -90,7 +90,7 @@
               <span jhiTranslate="global.menu.entities.group">Group</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="car"
