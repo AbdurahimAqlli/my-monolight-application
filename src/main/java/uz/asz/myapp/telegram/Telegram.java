@@ -195,25 +195,37 @@ public class Telegram extends TelegramLongPollingBot {
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setText(
                     "☎️ Тел.: 93 575 80 30\n" +
-                    "\uD83D\uDCF1 Telegram: t.me/intercruz\n" +
-                    "\uD83D\uDEC2 Telegram bot: t.me/intercruzbot\n" +
-                    "\uD83C\uDF10 Сайт: www.intercruz.uz \n" +
-                    "\uD83D\uDCE7 Еmail: support@intercruz.uz\n" +
-                    "\uD83D\uDCF7 Instagram: instagram.com/intercruz.uz\n" +
-                    "\uD83D\uDCBB Facebook: fb.com/driving.school.Intercruz/"
+                    "\uD83D\uDCF1 Telegram: t.me/abdurahimASZ\n" +
+                    "\uD83D\uDEC2 Telegram bot: t.me/abdurahimasz_bot\n" +
+                    "\uD83C\uDF10 Сайт: www.avtolux.uz \n" +
+                    "\uD83D\uDCE7 Еmail: dabdalaji@gmail.com \n" +
+                    "\uD83D\uDCF7 Instagram: https://www.instagram.com/abdurahim_asz/\n" +
+                    "\uD83D\uDCBB Facebook: https://www.facebook.com/abdurahim.otkirbekov.7/"
                 );
                 sendMessage.setChatId(message.getChatId());
                 execute(sendMessage);
                 return;
             }
             if (Objects.equals(message.getText(), "\uD83D\uDCF7  Фотогалерея")) {
-                SendPhoto sendMessage = new SendPhoto()
-                    .setPhoto(
-                        "my angel",
-                        new FileInputStream(new File("C:\\Users\\Lenovo\\Desktop\\salom\\shaxsiy\\200095900609_184873.jpg"))
-                    );
-                sendMessage.setCaption("my angel");
+                SendPhoto sendMessage = new SendPhoto();
+                sendMessage.setCaption("avtomaktab");
                 sendMessage.setChatId(message.getChatId());
+                sendMessage.setPhoto(
+                    "avtomaktab",
+                    new FileInputStream(new File("C:\\Users\\Lenovo\\Desktop\\salom\\avtomaktab\\unnamed.jpg"))
+                );
+                execute(sendMessage);
+
+                sendMessage.setPhoto(
+                    "avtomaktab",
+                    new FileInputStream(new File("C:\\Users\\Lenovo\\Desktop\\salom\\avtomaktab\\377015996.jpg"))
+                );
+                execute(sendMessage);
+
+                sendMessage.setPhoto(
+                    "avtomaktab",
+                    new FileInputStream(new File("C:\\Users\\Lenovo\\Desktop\\salom\\avtomaktab\\1-408x306.jpg"))
+                );
                 execute(sendMessage);
                 return;
             }
