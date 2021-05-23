@@ -37,7 +37,7 @@
         <dt><span jhiTranslate="myMonolightApp.car.student">Student</span></dt>
         <dd>
           <div *ngIf="car.student">
-            <a [routerLink]="['/student', car.student?.id, 'view']">{{ car.student?.id }}</a>
+            <a [routerLink]="['/student', car.student?.id, 'view']">{{ car.student?.name! }}</a>
           </div>
         </dd>
       </dl>
