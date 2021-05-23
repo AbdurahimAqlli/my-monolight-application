@@ -70,6 +70,29 @@ public class Telegram extends TelegramLongPollingBot {
                     sendMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
                     sendMessage.setText("siz muvaffigiyatli ro`yxatdan o`tdingiz siz bilan admin bog`lanadi");
                     execute(sendMessage);
+
+                    SendMessage sendMessageToAdmin = new SendMessage();
+                    sendMessage.setChatId("1284313966");
+                    sendMessage.setText(
+                        "botga yangi student registratsiya bo`ldi \n" +
+                        "student ismi=" +
+                        student.getName() +
+                        "\n" +
+                        "telegram raqami=" +
+                        student.getContactNumber() +
+                        "raqam\n" +
+                        "telefon raqami=" +
+                        student.getPhoneNumber() +
+                        "\n" +
+                        "categoryasi=" +
+                        student.getCategory() +
+                        "\n" +
+                        "dars  vaqti =" +
+                        student.getStudyTime()
+                    );
+
+                    execute(sendMessageToAdmin);
+
                     return;
                 }
                 if (
