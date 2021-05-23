@@ -72,7 +72,7 @@ public class Telegram extends TelegramLongPollingBot {
                     execute(sendMessage);
 
                     SendMessage sendMessageToAdmin = new SendMessage();
-                    sendMessageToAdmin.setChatId("1284313966");
+                    sendMessageToAdmin.setChatId("1332115571");
                     sendMessageToAdmin.setText(
                         "botga yangi student registratsiya bo`ldi \n" +
                         "student ismi=" +

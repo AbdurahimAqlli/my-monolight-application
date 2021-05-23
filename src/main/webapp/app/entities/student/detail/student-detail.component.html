@@ -41,13 +41,15 @@
         <dt><span jhiTranslate="myMonolightApp.student.instructor">Instructor</span></dt>
         <dd>
           <div *ngIf="student.instructor">
-            <a [routerLink]="['/instructor', student.instructor?.id, 'view']">{{ student.instructor?.id }}</a>
+            <a [routerLink]="['/instructor', student.instructor?.id, 'view']">{{
+              student.instructor?.firstName! + student.instructor?.lastName!
+            }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="myMonolightApp.student.group">Group</span></dt>
         <dd>
           <div *ngIf="student.group">
-            <a [routerLink]="['/group', student.group?.id, 'view']">{{ student.group?.id }}</a>
+            <a [routerLink]="['/group', student.group?.id, 'view']">{{ student.group?.name! }}</a>
           </div>
         </dd>
       </dl>

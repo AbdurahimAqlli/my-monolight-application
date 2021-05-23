@@ -76,7 +76,7 @@
               "
               *ngFor="let instructorOption of instructorsSharedCollection; trackBy: trackInstructorById"
             >
-              {{ instructorOption.id }}
+              {{ instructorOption.firstName! + instructorOption.lastName! }}
             </option>
           </select>
         </div>
@@ -89,7 +89,7 @@
               [ngValue]="groupOption.id === editForm.get('group')!.value?.id ? editForm.get('group')!.value : groupOption"
               *ngFor="let groupOption of groupsSharedCollection; trackBy: trackGroupById"
             >
-              {{ groupOption.id }}
+              {{ groupOption.name! }}
             </option>
           </select>
         </div>
