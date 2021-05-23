@@ -63,10 +63,10 @@ public class RegisterUserService {
 
         KeyboardRow row = new KeyboardRow();
         // Set each button, you can also use KeyboardButton objects if you need something else than text
-        rowBase.add("Row 0 Button 0");
-        row.add("Row 1 Button 1");
-        row.add("Row 1 Button 2");
-        row.add("Row 1 Button 3");
+        rowBase.add("\uD83D\uDCDD Отправить заявку на обучение");
+        row.add("\uD83D\uDCF0 Необходимые документы");
+        row.add("\uD83D\uDCF7  Фотогалерея");
+        row.add("\uD83D\uDCB0Цена");
         // Add the first row to the keyboard
         keyboard.add(rowBase);
 
@@ -74,15 +74,17 @@ public class RegisterUserService {
         // Create another keyboard row
         row = new KeyboardRow();
         // Set each button for the second line
-        row.add("Row 2 Button 1");
-        row.add("Row 2 Button 2");
-        row.add("Row 2 Button 3");
+        row.add("⏰ График занятий");
+        row.add("☎️ Наши контакты");
+        row.add("\uD83D\uDCCDНаш адрес");
         // Add the second row to the keyboard
 
         keyboard.add(row);
         // Set the keyboard to the markup
         keyboardMarkup.setKeyboard(keyboard);
         // Add it to the message
+        keyboardMarkup.setOneTimeKeyboard(true);
+
         message.setReplyMarkup(keyboardMarkup);
         return message;
     }
