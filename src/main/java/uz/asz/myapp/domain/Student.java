@@ -34,6 +34,9 @@ public class Student implements Serializable {
     @Column(name = "chat_id")
     private String chatId;
 
+    @Column(name = "study_time")
+    private String studyTime;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category;
@@ -114,6 +117,19 @@ public class Student implements Serializable {
 
     public void setChatId(String chatId) {
         this.chatId = chatId;
+    }
+
+    public String getStudyTime() {
+        return this.studyTime;
+    }
+
+    public Student studyTime(String studyTime) {
+        this.studyTime = studyTime;
+        return this;
+    }
+
+    public void setStudyTime(String studyTime) {
+        this.studyTime = studyTime;
     }
 
     public Category getCategory() {
@@ -202,6 +218,7 @@ public class Student implements Serializable {
             ", contactNumber='" + getContactNumber() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", chatId='" + getChatId() + "'" +
+            ", studyTime='" + getStudyTime() + "'" +
             ", category='" + getCategory() + "'" +
             "}";
     }

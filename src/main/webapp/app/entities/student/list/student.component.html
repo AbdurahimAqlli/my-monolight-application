@@ -37,6 +37,7 @@
           <th scope="col"><span jhiTranslate="myMonolightApp.student.contactNumber">Contact Number</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.phoneNumber">Phone Number</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.chatId">Chat Id</span></th>
+          <th scope="col"><span jhiTranslate="myMonolightApp.student.studyTime">Study Time</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.category">Category</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.instructor">Instructor</span></th>
           <th scope="col"><span jhiTranslate="myMonolightApp.student.group">Group</span></th>
@@ -52,6 +53,7 @@
           <td>{{ student.contactNumber }}</td>
           <td>{{ student.phoneNumber }}</td>
           <td>{{ student.chatId }}</td>
+          <td>{{ student.studyTime }}</td>
           <td jhiTranslate="{{ 'myMonolightApp.Category.' + student.category }}">{{ student.category }}</td>
           <td>
             <div *ngIf="student.instructor">

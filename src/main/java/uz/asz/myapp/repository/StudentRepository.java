@@ -13,5 +13,5 @@ import uz.asz.myapp.domain.Student;
 @SuppressWarnings("unused")
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    Optional<Student> findByChatId(@NotNull String chatId);
+    Optional<Student> findFirstByChatId(@NotNull String chatId);
 }

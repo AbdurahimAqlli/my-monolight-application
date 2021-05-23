@@ -18,6 +18,10 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "studyTime",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "category",
       "fieldType": "Category",
       "fieldValues": "B,BC,C,D,E"

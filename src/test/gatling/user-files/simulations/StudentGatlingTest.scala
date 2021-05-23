@@ -76,6 +76,7 @@ class StudentGatlingTest extends Simulation {
                 , "contactNumber":"SAMPLE_TEXT"
                 , "phoneNumber":"SAMPLE_TEXT"
                 , "chatId":"SAMPLE_TEXT"
+                , "studyTime":"SAMPLE_TEXT"
                 , "category":"B"
                 }""")).asJson
             .check(status.is(201))

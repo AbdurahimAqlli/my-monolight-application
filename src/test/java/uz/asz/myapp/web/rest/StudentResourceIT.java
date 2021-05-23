@@ -42,6 +42,9 @@ class StudentResourceIT {
     private static final String DEFAULT_CHAT_ID = "AAAAAAAAAA";
     private static final String UPDATED_CHAT_ID = "BBBBBBBBBB";
 
+    private static final String DEFAULT_STUDY_TIME = "AAAAAAAAAA";
+    private static final String UPDATED_STUDY_TIME = "BBBBBBBBBB";
+
     private static final Category DEFAULT_CATEGORY = Category.B;
     private static final Category UPDATED_CATEGORY = Category.BC;
 
@@ -74,6 +77,7 @@ class StudentResourceIT {
             .contactNumber(DEFAULT_CONTACT_NUMBER)
             .phoneNumber(DEFAULT_PHONE_NUMBER)
             .chatId(DEFAULT_CHAT_ID)
+            .studyTime(DEFAULT_STUDY_TIME)
             .category(DEFAULT_CATEGORY);
         return student;
     }
@@ -90,6 +94,7 @@ class StudentResourceIT {
             .contactNumber(UPDATED_CONTACT_NUMBER)
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .chatId(UPDATED_CHAT_ID)
+            .studyTime(UPDATED_STUDY_TIME)
             .category(UPDATED_CATEGORY);
         return student;
     }
@@ -116,6 +121,7 @@ class StudentResourceIT {
         assertThat(testStudent.getContactNumber()).isEqualTo(DEFAULT_CONTACT_NUMBER);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
         assertThat(testStudent.getChatId()).isEqualTo(DEFAULT_CHAT_ID);
+        assertThat(testStudent.getStudyTime()).isEqualTo(DEFAULT_STUDY_TIME);
         assertThat(testStudent.getCategory()).isEqualTo(DEFAULT_CATEGORY);
     }
 
@@ -153,6 +159,7 @@ class StudentResourceIT {
             .andExpect(jsonPath("$.[*].contactNumber").value(hasItem(DEFAULT_CONTACT_NUMBER)))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
             .andExpect(jsonPath("$.[*].chatId").value(hasItem(DEFAULT_CHAT_ID)))
+            .andExpect(jsonPath("$.[*].studyTime").value(hasItem(DEFAULT_STUDY_TIME)))
             .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())));
     }
 
@@ -172,6 +179,7 @@ class StudentResourceIT {
             .andExpect(jsonPath("$.contactNumber").value(DEFAULT_CONTACT_NUMBER))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER))
             .andExpect(jsonPath("$.chatId").value(DEFAULT_CHAT_ID))
+            .andExpect(jsonPath("$.studyTime").value(DEFAULT_STUDY_TIME))
             .andExpect(jsonPath("$.category").value(DEFAULT_CATEGORY.toString()));
     }
 
@@ -199,6 +207,7 @@ class StudentResourceIT {
             .contactNumber(UPDATED_CONTACT_NUMBER)
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .chatId(UPDATED_CHAT_ID)
+            .studyTime(UPDATED_STUDY_TIME)
             .category(UPDATED_CATEGORY);
 
         restStudentMockMvc
@@ -217,6 +226,7 @@ class StudentResourceIT {
         assertThat(testStudent.getContactNumber()).isEqualTo(UPDATED_CONTACT_NUMBER);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
         assertThat(testStudent.getChatId()).isEqualTo(UPDATED_CHAT_ID);
+        assertThat(testStudent.getStudyTime()).isEqualTo(UPDATED_STUDY_TIME);
         assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);
     }
 
@@ -288,7 +298,7 @@ class StudentResourceIT {
         Student partialUpdatedStudent = new Student();
         partialUpdatedStudent.setId(student.getId());
 
-        partialUpdatedStudent.name(UPDATED_NAME).category(UPDATED_CATEGORY);
+        partialUpdatedStudent.name(UPDATED_NAME).studyTime(UPDATED_STUDY_TIME);
 
         restStudentMockMvc
             .perform(
@@ -306,7 +316,8 @@ class StudentResourceIT {
         assertThat(testStudent.getContactNumber()).isEqualTo(DEFAULT_CONTACT_NUMBER);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
         assertThat(testStudent.getChatId()).isEqualTo(DEFAULT_CHAT_ID);
-        assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);
+        assertThat(testStudent.getStudyTime()).isEqualTo(UPDATED_STUDY_TIME);
+        assertThat(testStudent.getCategory()).isEqualTo(DEFAULT_CATEGORY);
     }
 
     @Test
@@ -326,6 +337,7 @@ class StudentResourceIT {
             .contactNumber(UPDATED_CONTACT_NUMBER)
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .chatId(UPDATED_CHAT_ID)
+            .studyTime(UPDATED_STUDY_TIME)
             .category(UPDATED_CATEGORY);
 
         restStudentMockMvc
@@ -344,6 +356,7 @@ class StudentResourceIT {
         assertThat(testStudent.getContactNumber()).isEqualTo(UPDATED_CONTACT_NUMBER);
         assertThat(testStudent.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
         assertThat(testStudent.getChatId()).isEqualTo(UPDATED_CHAT_ID);
+        assertThat(testStudent.getStudyTime()).isEqualTo(UPDATED_STUDY_TIME);
         assertThat(testStudent.getCategory()).isEqualTo(UPDATED_CATEGORY);
     }
 

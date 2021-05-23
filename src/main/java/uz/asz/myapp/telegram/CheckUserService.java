@@ -39,7 +39,7 @@ public class CheckUserService {
     }
 
     public boolean checkStudentInDb(long chatId) {
-        Optional<Student> optionalStudent = studentRepository.findByChatId(String.valueOf(chatId));
+        Optional<Student> optionalStudent = studentRepository.findFirstByChatId(String.valueOf(chatId));
         log.info("optionalStudent {}", optionalStudent);
         return optionalStudent.isPresent();
     }

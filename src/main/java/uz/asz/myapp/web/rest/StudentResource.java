@@ -136,6 +136,9 @@ public class StudentResource {
                     if (student.getChatId() != null) {
                         existingStudent.setChatId(student.getChatId());
                     }
+                    if (student.getStudyTime() != null) {
+                        existingStudent.setStudyTime(student.getStudyTime());
+                    }
                     if (student.getCategory() != null) {
                         existingStudent.setCategory(student.getCategory());
                     }
