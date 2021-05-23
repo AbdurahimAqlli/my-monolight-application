@@ -1,12 +1,12 @@
 package uz.asz.myapp.telegram;
 
+import static uz.asz.myapp.telegram.StepEnums.REGISTER_FOR_TEACHING_4;
+import static uz.asz.myapp.telegram.StepEnums.SUCCESSFULLY_REGISTRATED;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -16,10 +16,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import uz.asz.myapp.domain.Student;
+import uz.asz.myapp.domain.enumeration.Category;
 import uz.asz.myapp.repository.StudentRepository;
 
 @Component
@@ -50,27 +54,80 @@ public class Telegram extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         try {
+            if (update.getMessage() == null) {
+                if (
+                    (
+                        Objects.equals(update.getCallbackQuery().getData(), "B") ||
+                        Objects.equals(update.getCallbackQuery().getData(), "BC") ||
+                        Objects.equals(update.getCallbackQuery().getData(), "C")
+                    )
+                ) {
+                    Student student;
+                    Optional<Student> optionalStudent = studentRepository.findFirstByChatId(
+                        String.valueOf(update.getCallbackQuery().getMessage().getChatId())
+                    );
+                    student = optionalStudent.orElseGet(Student::new);
+                    //todo
+                    student.setCategory(Category.valueOf(update.getCallbackQuery().getData()));
+                    studentRepository.save(student);
+
+                    stepEnums = StepEnums.MAIN;
+                    SendMessage sendMessage = new SendMessage();
+                    sendMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
+                    sendMessage.setText("siz muvaffigiyatli ro`yxatdan o`tdingiz siz bilan admin bog`lanadi");
+                    execute(sendMessage);
+                    return;
+                }
+                if (
+                    (
+                        Objects.equals(update.getCallbackQuery().getData(), "Смена #1 (с 17:00 до 20:00)") ||
+                        Objects.equals(update.getCallbackQuery().getData(), "Смена #1 (с 13:00 до 16:00)") ||
+                        Objects.equals(update.getCallbackQuery().getData(), "Смена #1 (с 9:00 до 12:00)")
+                    )
+                ) {
+                    Student student;
+                    Optional<Student> optionalStudent = studentRepository.findFirstByChatId(
+                        String.valueOf(update.getCallbackQuery().getMessage().getChatId())
+                    );
+                    student = optionalStudent.orElseGet(Student::new);
+                    //todo
+                    student.setStudyTime(update.getCallbackQuery().getData());
+                    studentRepository.save(student);
+
+                    SendMessage sendMessage = new SendMessage();
+                    sendMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
+                    sendMessage.setText("Qaysi category bo`yicha o`qimoqchisz!");
+                    List<InlineKeyboardButton> rowInline = new ArrayList<>();
+                    rowInline.add(new InlineKeyboardButton().setText("B").setCallbackData("B"));
+                    rowInline.add(new InlineKeyboardButton().setText("BC").setCallbackData("BC"));
+                    rowInline.add(new InlineKeyboardButton().setText("C").setCallbackData("C"));
+
+                    InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(Collections.singletonList(rowInline));
+                    // Add it to the message
+                    sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+                    execute(sendMessage);
+                    return;
+                }
+            }
             if (checkUserService.checkTeacherInDb(message.getChatId())) {
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setText("salom ustoz che gap");
                 sendMessage.setChatId(message.getChatId());
+                stepEnums = StepEnums.MAIN;
                 execute(sendMessage);
-                return;
             }
             if (checkUserService.checkInstructorInDb(message.getChatId())) {
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setText("salom instruktor che gap");
                 sendMessage.setChatId(message.getChatId());
+                stepEnums = StepEnums.MAIN;
                 execute(sendMessage);
-                return;
             }
-            //            if (checkUserService.checkStudentInDb(message.getChatId())) {
-            //                SendMessage sendMessage = new SendMessage();
-            //                sendMessage.setText("salom student che gap");
-            //                sendMessage.setChatId(message.getChatId());
-            //                execute(sendMessage);
-            //                return;
-            //            }
+            if (checkUserService.checkStudentInDb(message.getChatId())) {
+                if (null == stepEnums) {
+                    stepEnums = StepEnums.MAIN;
+                } else stepEnums = stepEnums;
+            }
             if (stepEnums == null) {
                 stepEnums = StepEnums.BEGIN;
             }
@@ -84,7 +141,7 @@ public class Telegram extends TelegramLongPollingBot {
                 Student student = new Student();
                 student.setContactNumber(message.getContact().getPhoneNumber());
                 student.setChatId(String.valueOf(message.getChatId()));
-                student.setName(message.getContact().getFirstName() + message.getContact().getFirstName());
+                student.setName(message.getContact().getFirstName());
                 studentRepository.save(student);
                 execute(registerUserService.contactButton(message.getChatId()));
                 return;
@@ -209,8 +266,6 @@ public class Telegram extends TelegramLongPollingBot {
                 return;
             }
             if (stepEnums == StepEnums.REGISTER_FOR_TEACHING_2) {
-                stepEnums = StepEnums.REGISTER_FOR_TEACHING_3;
-
                 Student student;
                 Optional<Student> optionalStudent = studentRepository.findFirstByChatId(String.valueOf(message.getChatId()));
                 student = optionalStudent.orElseGet(Student::new);
@@ -220,52 +275,33 @@ public class Telegram extends TelegramLongPollingBot {
                 sendMessage.setText("✅ В какой смене вы хотели бы обучаться?");
                 student.setPhoneNumber(message.getText());
                 studentRepository.save(student);
-
-                execute(sendMessage);
-                return;
-            }
-            if (stepEnums == StepEnums.REGISTER_FOR_TEACHING_3) {
-                Student student;
-                Optional<Student> optionalStudent = studentRepository.findFirstByChatId(String.valueOf(message.getChatId()));
-                student = optionalStudent.orElseGet(Student::new);
-                //todo
-                student.setStudyTime(message.getText());
-                studentRepository.save(student);
-                stepEnums = StepEnums.REGISTER_FOR_TEACHING_4;
-                SendMessage sendMessage = new SendMessage();
-                sendMessage.setChatId(message.getChatId());
-                sendMessage.setText("Qaysi category bo`yicha o`qimoqchisz!");
-                execute(sendMessage);
-                return;
-            }
-            if (stepEnums == StepEnums.REGISTER_FOR_TEACHING_4) {
-                stepEnums = StepEnums.REGISTER_FOR_TEACHING_5;
-                SendMessage sendMessage = new SendMessage();
-                sendMessage.setChatId(message.getChatId());
-                ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
-                // Create the keyboard (list of keyboard rows)
-                List<KeyboardRow> keyboard = new ArrayList<>();
-                // Create a keyboard row
-                KeyboardRow row1 = new KeyboardRow();
-                row1.add("B");
-                KeyboardRow row2 = new KeyboardRow();
-                row2.add("BC");
-
-                KeyboardRow row3 = new KeyboardRow();
-                row3.add("C");
-                keyboard.add(row1);
-                keyboard.add(row2);
-                keyboard.add(row3);
-                // Set the keyboard to the markup
-                keyboardMarkup.setKeyboard(keyboard);
+                List<List<InlineKeyboardButton>> list = new ArrayList<>();
+                List<InlineKeyboardButton> rowInline1 = new ArrayList<>();
+                List<InlineKeyboardButton> rowInline2 = new ArrayList<>();
+                List<InlineKeyboardButton> rowInline3 = new ArrayList<>();
+                rowInline1.add(
+                    new InlineKeyboardButton().setText("Смена #1 (с 9:00 до 12:00)").setCallbackData("Смена #1 (с 9:00 до 12:00)")
+                );
+                rowInline2.add(
+                    new InlineKeyboardButton().setText("Смена #1 (с 13:00 до 16:00)").setCallbackData("Смена #1 (с 13:00 до 16:00)")
+                );
+                rowInline3.add(
+                    new InlineKeyboardButton().setText("Смена #1 (с 17:00 до 20:00)").setCallbackData("Смена #1 (с 17:00 до 20:00)")
+                );
+                list.add(rowInline1);
+                list.add(rowInline2);
+                list.add(rowInline3);
+                InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(list);
                 // Add it to the message
-                sendMessage.setReplyMarkup(keyboardMarkup);
+                sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
                 execute(sendMessage);
                 return;
             }
 
             if (stepEnums == StepEnums.MAIN) {
                 execute(registerUserService.branchButton(message.getChatId()));
+                return;
             }
         } catch (TelegramApiException e) {
             log.warn("TelegramApiException ex {}", e.getMessage());
